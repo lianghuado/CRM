@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.easywork.mycrm.persistence.EmployeeMapper">
+  <resultMap id="BaseResultMap" type="com.easywork.mycrm.persistence.Employee">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="username" jdbcType="CHAR" property="username" />
+    <result column="pass" jdbcType="CHAR" property="pass" />
+    <result column="nickname" jdbcType="CHAR" property="nickname" />
+    <result column="realname" jdbcType="CHAR" property="realname" />
+    <result column="jobInfoId" jdbcType="INTEGER" property="jobinfoid" />
+    <result column="departmentId" jdbcType="INTEGER" property="departmentid" />
+    <result column="phoneNo" jdbcType="CHAR" property="phoneno" />
+    <result column="officeTel" jdbcType="CHAR" property="officetel" />
+    <result column="workStatu" jdbcType="CHAR" property="workstatu" />
+  </resultMap>
+  <!-- 登录 -->
+  <select id="loginByNameAndPass" resultMap="BaseResultMap">
+  	select * from employee
+  	where workstatu=1 and username=#{username} and pass=#{pass}  		
+  </select>
+  <!-- 获取所有人员 -->
+  <select id="showEmp" resultType="java.util.Map">
+  	select e.*, j.job,d.dname
+  	from (employee e left join department d on e.departmentid=d.id) left join 
+  	jobinfo j on e.jobinfoid=j.id 	
+ 	where e.workstatu=1	
+ 	<if test="id != null and id != ''">
+  		and e.id=#{id}
+  	</if>
+  	<if test="dname != null and dname != ''">
+  		and d.dname=#{dname}
+  	</if> 			
+  </select>
+  <!-- 获取所有人员记录条数 -->
+  <select id="selectCountByIdAndDname" resultType="java.lang.Integer">
+  	select count(e.id)
+  	from (employee e left join department d on e.departmentid=d.id) left join 
+  	jobinfo j on e.jobinfoid=j.id 
+  	where e.workstatu=1	
+ 	<if test="id != null and id != ''">
+  		and e.id=#{id}
+  	</if>
+  	<if test="dname != null and dname != ''">
+  		and d.dname=#{dname}
+  	</if> 	
+  </select>
+ <!--  获取销售人员 -->
+  <select id="listSell" resultType="java.util.Map">
+  	select e.*, j.job,d.dname
+  	from (employee e left join department d on e.departmentid=d.id) left join 
+  	jobinfo j on e.jobinfoid=j.id 	
+ 	where e.workstatu=1	and j.id in (7,8,9)
+  </select>
+  <!--  咨询人员 -->
+  <select id="listConsult" resultType="java.util.Map">
+  	select e.*, j.job,d.dname
+  	from (employee e left join department d on e.departmentid=d.id) left join 
+  	jobinfo j on e.jobinfoid=j.id 	
+ 	where e.workstatu=1	and j.id in (3,4,5,6)
+  </select>
+  <!-- 获取部门总人数 -->
+  <select id="selectCountByDept" resultType="java.lang.Integer">
+  	select count(e.id)
+  	from (employee e left join department d on e.departmentid=d.id) left join 
+  	jobinfo j on e.jobinfoid=j.id 
+  	where e.workstatu=1	and d.id=#{did} 		
+  </select>
+  <select id="selectEmpByDept" resultType="java.util.Map">
+  	select e.*, j.job,d.dname
+  	from (employee e left join department d on e.departmentid=d.id) left join 
+  	jobinfo j on e.jobinfoid=j.id 	
+ 	where e.workstatu=1	and d.id=#{did} 	 			
+  </select>
+</mapper>

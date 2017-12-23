@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.easywork.mycrm.persistence.JrtwoMapper">
+  <resultMap id="BaseResultMap" type="com.easywork.mycrm.persistence.Jrtwo">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="jobinfoid" jdbcType="INTEGER" property="jobinfoid" />
+    <result column="rightid" jdbcType="INTEGER" property="rightid" />
+  </resultMap>
+  <select id="listR" resultType="java.lang.String">
+  	select r.url from jrtwo j inner join
+	rights r on r.rid=j.rightid
+	where rightType=2 and j.jobinfoid=#{jobinfoid} 
+  </select>
+</mapper>

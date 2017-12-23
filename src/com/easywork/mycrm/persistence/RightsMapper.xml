@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.easywork.mycrm.persistence.RightsMapper">
+  <resultMap id="BaseResultMap" type="com.easywork.mycrm.persistence.Rights">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="rid" jdbcType="INTEGER" property="rid" />
+    <result column="rightName" jdbcType="CHAR" property="rightname" />
+    <result column="rightType" jdbcType="CHAR" property="righttype" />
+    <result column="url" jdbcType="CHAR" property="url" />
+    <result column="pid" jdbcType="INTEGER" property="pid" />
+  </resultMap>
+  <select id="listMenu" resultMap="BaseResultMap">
+  	select r.*	from jobright j right join
+	rights r on r.pid=j.rightid
+	where j.jobinfoid=#{id} 
+  </select>
+  <!-- 获取所有一级权限 -->
+  <select id="listJobRight" resultMap="BaseResultMap">
+  	select r.*	from jobright j right join
+	rights r on r.pid=j.rightid
+	where rightType=1 and j.jobinfoid=#{id} 
+  </select>
+  <!-- 获取所有二级权限 -->
+   <select id="listTwoRight" resultMap="BaseResultMap">
+  	select r.*	from jobright j right join
+	rights r on r.pid=j.rightid
+	where rightType=2 and j.jobinfoid=#{rid} 
+  </select>
+  
+</mapper>

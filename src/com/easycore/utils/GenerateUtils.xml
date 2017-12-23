@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://www.mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+	<!-- properties加载 -->
+	<properties resource="config/core.properties" />
+	<context id="mysql" targetRuntime="MyBatis3Simple"
+		defaultModelType="flat">
+		<!-- 通用mapper插件配置 -->
+		<plugin type="tk.mybatis.mapper.generator.MapperPlugin">
+			<property name="mappers" value="tk.mybatis.mapper.common.Mapper" />
+		</plugin>
+		<!-- jdbc配置 -->
+		<jdbcConnection driverClass="${jdbc.driverClassName}"
+			connectionURL="${jdbc.url}" userId="${jdbc.username}" password="${jdbc.password}">
+		</jdbcConnection>
+		<!-- 实体类/接口/接口xml配置 -->
+		<javaModelGenerator targetPackage="${persist.pack}"
+			targetProject="${project.src}" />
+		<sqlMapGenerator targetPackage="${persist.pack}"
+			targetProject="${project.src}" />
+		<javaClientGenerator targetPackage="${persist.pack}"
+			targetProject="${project.src}" type="XMLMAPPER" />
+		<table tableName="%"></table>
+	</context>
+</generatorConfiguration>

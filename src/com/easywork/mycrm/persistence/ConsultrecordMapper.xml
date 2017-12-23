@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.easywork.mycrm.persistence.ConsultrecordMapper">
+  <resultMap id="BaseResultMap" type="com.easywork.mycrm.persistence.Consultrecord">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="customId" jdbcType="INTEGER" property="customid" />
+    <result column="consultStatu" jdbcType="CHAR" property="consultstatu" />
+    <result column="consultManId" jdbcType="INTEGER" property="consultmanid" />
+    <result column="consultDate" jdbcType="DATE" property="consultdate" />
+    <result column="result" jdbcType="VARCHAR" property="result" />
+  </resultMap>
+  <select id="selectRecordCountByCid" resultType="java.lang.Integer">
+  	select count(e.id)
+  	from consultrecord c inner join employee e on c.consultmanid=e.id
+  	where e.workstatu=1 and e.id=#{id}
+  </select>
+  <select id="selectRecordByCid" resultType="java.util.Map">
+  	select c.*,e.realname,cu.name
+  	from (consultrecord c inner join employee e on c.consultmanid=e.id)
+  	inner join custom cu on c.customid=cu.id
+  	where e.workstatu=1 and e.id=#{id}
+  </select>
+  <select id="selectRecordCountByDid" resultType="java.lang.Integer">
+  	select count(c.id)
+  	from consultrecord c inner join employee e on c.consultmanid=e.id
+  	where e.workstatu=1 and e.departmentid=#{did}
+  </select>
+  <select id="selectRecordByDid" resultType="java.util.Map">
+  	select c.*,e.realname,cu.name
+  	from (consultrecord c inner join employee e on c.consultmanid=e.id)
+  	inner join custom cu on c.customid=cu.id
+  	where e.workstatu=1 and e.departmentid=#{did}
+  </select>
+  
+</mapper>

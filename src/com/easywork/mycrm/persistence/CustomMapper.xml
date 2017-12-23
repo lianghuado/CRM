@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.easywork.mycrm.persistence.CustomMapper">
+  <resultMap id="BaseResultMap" type="com.easywork.mycrm.persistence.Custom">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="CHAR" property="name" />
+    <result column="education" jdbcType="CHAR" property="education" />
+    <result column="phoneNo" jdbcType="CHAR" property="phoneno" />
+    <result column="qq" jdbcType="CHAR" property="qq" />
+    <result column="email" jdbcType="CHAR" property="email" />
+    <result column="customStatu" jdbcType="CHAR" property="customstatu" />
+    <result column="createDate" jdbcType="DATE" property="createdate" />
+    <result column="inviteName" jdbcType="CHAR" property="invitename" />
+  </resultMap>
+</mapper>

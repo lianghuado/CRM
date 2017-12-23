@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.easywork.mycrm.persistence.CustominfoMapper">
+  <resultMap id="BaseResultMap" type="com.easywork.mycrm.persistence.Custominfo">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="customId" jdbcType="INTEGER" property="customid" />
+    <result column="followManId" jdbcType="INTEGER" property="followmanid" />
+    <result column="statu" jdbcType="CHAR" property="statu" />
+    <result column="startDate" jdbcType="DATE" property="startdate" />
+    <result column="planDate" jdbcType="DATE" property="plandate" />
+    <result column="lastFollowDate" jdbcType="DATE" property="lastfollowdate" />
+    <result column="mark" jdbcType="VARCHAR" property="mark" />
+  </resultMap>  
+  <select id="selectCountByFid" resultType="java.lang.Integer">
+  	select count(c.id)
+  	from employee e inner join custominfo c on c.followmanid=e.id
+  	where e.workstatu=1 and c.followmanid=#{id}
+  </select>
+  <select id="listCinfo" resultType="java.util.Map">
+  	select c.*,e.realname,cu.name
+  	from (employee e inner join  custominfo c on e.id=c.followmanid) inner join custom cu 
+  	on c.customid=cu.id
+  	where e.workstatu=1 and c.followmanid=#{id}
+  </select>
+  <select id="selectCountByDid" resultType="java.lang.Integer">
+  	select count(c.id)
+  	from custominfo c inner join employee e on c.followmanid=e.id
+  	where e.workstatu=1 and e.departmentid=#{did}
+  </select>
+  <select id="listCinfoByDid" resultType="java.util.Map">
+  	select c.*,e.realname,cu.name
+  	from (employee e inner join  custominfo c on e.id=c.followmanid) inner join custom cu 
+  	on c.customid=cu.id
+  	where e.workstatu=1 and e.departmentid=#{did}
+  </select>
+</mapper>
